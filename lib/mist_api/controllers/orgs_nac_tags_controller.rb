@@ -6,45 +6,6 @@
 module MistApi
   # OrgsNACTagsController
   class OrgsNACTagsController < BaseController
-    # Get Org NAC Tag
-    # @param [UUID | String] org_id Required parameter: Example:
-    # @param [UUID | String] nactag_id Required parameter: Example:
-    # @return [NacTag] response from the API call.
-    def get_org_nac_tag(org_id,
-                        nactag_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/api/v1/orgs/{org_id}/nactags/{nactag_id}',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(org_id, key: 'org_id')
-                                    .should_encode(true))
-                   .template_param(new_parameter(nactag_id, key: 'nactag_id')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
-        .response(new_response_handler
-                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(NacTag.method(:from_hash))
-                    .local_error('400',
-                                 'Bad Syntax',
-                                 ApiV1OrgsNactags400ErrorException)
-                    .local_error('401',
-                                 'Unauthorized',
-                                 ApiV1OrgsNactags401ErrorException)
-                    .local_error('403',
-                                 'Permission Denied',
-                                 ApiV1OrgsNactags403ErrorException)
-                    .local_error('404',
-                                 'Not found. The API endpoint doesnâ€™t exist or resource'\
-                                  ' doesnâ€™ t exist',
-                                 ResponseHttp404Exception)
-                    .local_error('429',
-                                 'Too Many Request. The API Token used for the request reached'\
-                                  ' the 5000 API Calls per hour threshold',
-                                 ApiV1OrgsNactags429ErrorException))
-        .execute
-    end
-
     # Get List of Org NAC Tags
     # @param [UUID | String] org_id Required parameter: Example:
     # @param [String] type Optional parameter: Type of NAC Tag
@@ -76,6 +37,46 @@ module MistApi
                     .deserializer(APIHelper.method(:custom_type_deserializer))
                     .deserialize_into(NacTag.method(:from_hash))
                     .is_response_array(true)
+                    .local_error('400',
+                                 'Bad Syntax',
+                                 ApiV1OrgsNactags400ErrorException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 ApiV1OrgsNactags401ErrorException)
+                    .local_error('403',
+                                 'Permission Denied',
+                                 ApiV1OrgsNactags403ErrorException)
+                    .local_error('404',
+                                 'Not found. The API endpoint doesnâ€™t exist or resource'\
+                                  ' doesnâ€™ t exist',
+                                 ResponseHttp404Exception)
+                    .local_error('429',
+                                 'Too Many Request. The API Token used for the request reached'\
+                                  ' the 5000 API Calls per hour threshold',
+                                 ApiV1OrgsNactags429ErrorException))
+        .execute
+    end
+
+    # Create Org NAC Tag
+    # @param [UUID | String] org_id Required parameter: Example:
+    # @param [NacTag] body Optional parameter: Example:
+    # @return [NacTag] response from the API call.
+    def create_org_nac_tag(org_id,
+                           body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/api/v1/orgs/{org_id}/nactags',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(org_id, key: 'org_id')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(NacTag.method(:from_hash))
                     .local_error('400',
                                  'Bad Syntax',
                                  ApiV1OrgsNactags400ErrorException)
@@ -133,26 +134,21 @@ module MistApi
         .execute
     end
 
-    # Update Org NAC Tag
+    # Get Org NAC Tag
     # @param [UUID | String] org_id Required parameter: Example:
     # @param [UUID | String] nactag_id Required parameter: Example:
-    # @param [NacTag] body Optional parameter: Example:
     # @return [NacTag] response from the API call.
-    def update_org_nac_tag(org_id,
-                           nactag_id,
-                           body: nil)
+    def get_org_nac_tag(org_id,
+                        nactag_id)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
+        .request(new_request_builder(HttpMethodEnum::GET,
                                      '/api/v1/orgs/{org_id}/nactags/{nactag_id}',
                                      Server::DEFAULT)
                    .template_param(new_parameter(org_id, key: 'org_id')
                                     .should_encode(true))
                    .template_param(new_parameter(nactag_id, key: 'nactag_id')
                                     .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
                    .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
         .response(new_response_handler
                     .deserializer(APIHelper.method(:custom_type_deserializer))
@@ -177,17 +173,21 @@ module MistApi
         .execute
     end
 
-    # Create Org NAC Tag
+    # Update Org NAC Tag
     # @param [UUID | String] org_id Required parameter: Example:
+    # @param [UUID | String] nactag_id Required parameter: Example:
     # @param [NacTag] body Optional parameter: Example:
     # @return [NacTag] response from the API call.
-    def create_org_nac_tag(org_id,
+    def update_org_nac_tag(org_id,
+                           nactag_id,
                            body: nil)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/api/v1/orgs/{org_id}/nactags',
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/api/v1/orgs/{org_id}/nactags/{nactag_id}',
                                      Server::DEFAULT)
                    .template_param(new_parameter(org_id, key: 'org_id')
+                                    .should_encode(true))
+                   .template_param(new_parameter(nactag_id, key: 'nactag_id')
                                     .should_encode(true))
                    .header_param(new_parameter('application/json', key: 'Content-Type'))
                    .body_param(new_parameter(body))

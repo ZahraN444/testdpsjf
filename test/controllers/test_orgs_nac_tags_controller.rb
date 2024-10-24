@@ -13,6 +13,72 @@ class OrgsNACTagsControllerTests < ControllerTestBase
     @response_catcher = @controller.http_call_back
   end
 
+  # Get List of Org NAC Tags
+  def test_list_org_nac_tags
+    # Parameters for the API call
+    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
+    type = nil
+    name = nil
+    match = nil
+    page = 1
+    limit = 100
+
+    # Perform the API call through the SDK function
+    result = @controller.list_org_nac_tags(org_id, type: type, name: name,
+                                           match: match, page: page,
+                                           limit: limit)
+
+    # Test response code
+    assert_equal(200, @response_catcher.response.status_code)
+
+    # Test headers
+    expected_headers = {}
+    expected_headers['content-type'] = 'application/json'
+
+    assert(ComparisonHelper.match_headers(expected_headers, @response_catcher.response.headers))
+  end
+
+  # Create Org NAC Tag
+  def test_create_org_nac_tag
+    # Parameters for the API call
+    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
+    body = nil
+
+    # Perform the API call through the SDK function
+    result = @controller.create_org_nac_tag(org_id, body: body)
+
+    # Test response code
+    assert_equal(200, @response_catcher.response.status_code)
+
+    # Test headers
+    expected_headers = {}
+    expected_headers['content-type'] = 'application/json'
+
+    assert(ComparisonHelper.match_headers(expected_headers, @response_catcher.response.headers))
+
+    # Test whether the captured response is as we expected
+    refute_nil(result)
+    expected_body = JSON.parse(
+      '{"match":"client_mac","name":"cameras","type":"match","values":["010203'\
+      '040506","abcdef*"]}'
+    )
+    received_body = JSON.parse(@response_catcher.response.raw_body)
+    assert(ComparisonHelper.match_body(expected_body, received_body))
+  end
+
+  # Delete Org NAC Tag
+  def test_delete_org_nac_tag
+    # Parameters for the API call
+    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
+    nactag_id = '000000ab-00ab-00ab-00ab-0000000000ab'
+
+    # Perform the API call through the SDK function
+    @controller.delete_org_nac_tag(org_id, nactag_id)
+
+    # Test response code
+    assert_equal(200, @response_catcher.response.status_code)
+  end
+
   # Get Org NAC Tag
   def test_get_org_nac_tag
     # Parameters for the API call
@@ -41,44 +107,6 @@ class OrgsNACTagsControllerTests < ControllerTestBase
     assert(ComparisonHelper.match_body(expected_body, received_body))
   end
 
-  # Get List of Org NAC Tags
-  def test_list_org_nac_tags
-    # Parameters for the API call
-    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
-    type = nil
-    name = nil
-    match = nil
-    page = 1
-    limit = 100
-
-    # Perform the API call through the SDK function
-    result = @controller.list_org_nac_tags(org_id, type: type, name: name,
-                                           match: match, page: page,
-                                           limit: limit)
-
-    # Test response code
-    assert_equal(200, @response_catcher.response.status_code)
-
-    # Test headers
-    expected_headers = {}
-    expected_headers['content-type'] = 'application/json'
-
-    assert(ComparisonHelper.match_headers(expected_headers, @response_catcher.response.headers))
-  end
-
-  # Delete Org NAC Tag
-  def test_delete_org_nac_tag
-    # Parameters for the API call
-    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
-    nactag_id = '000000ab-00ab-00ab-00ab-0000000000ab'
-
-    # Perform the API call through the SDK function
-    @controller.delete_org_nac_tag(org_id, nactag_id)
-
-    # Test response code
-    assert_equal(200, @response_catcher.response.status_code)
-  end
-
   # Update Org NAC Tag
   def test_update_org_nac_tag
     # Parameters for the API call
@@ -88,34 +116,6 @@ class OrgsNACTagsControllerTests < ControllerTestBase
 
     # Perform the API call through the SDK function
     result = @controller.update_org_nac_tag(org_id, nactag_id, body: body)
-
-    # Test response code
-    assert_equal(200, @response_catcher.response.status_code)
-
-    # Test headers
-    expected_headers = {}
-    expected_headers['content-type'] = 'application/json'
-
-    assert(ComparisonHelper.match_headers(expected_headers, @response_catcher.response.headers))
-
-    # Test whether the captured response is as we expected
-    refute_nil(result)
-    expected_body = JSON.parse(
-      '{"match":"client_mac","name":"cameras","type":"match","values":["010203'\
-      '040506","abcdef*"]}'
-    )
-    received_body = JSON.parse(@response_catcher.response.raw_body)
-    assert(ComparisonHelper.match_body(expected_body, received_body))
-  end
-
-  # Create Org NAC Tag
-  def test_create_org_nac_tag
-    # Parameters for the API call
-    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
-    body = nil
-
-    # Perform the API call through the SDK function
-    result = @controller.create_org_nac_tag(org_id, body: body)
 
     # Test response code
     assert_equal(200, @response_catcher.response.status_code)

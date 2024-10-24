@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'pack-rubyyy'
-  s.version = '3.4.5'
+  s.version = '2.3.4'
   s.summary = 'test'
   s.description = ''
   s.authors = ['zahra']

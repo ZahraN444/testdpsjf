@@ -34,16 +34,16 @@
 Install the gem from the command line:
 
 ```ruby
-gem install pack-rubyyy -v 3.4.5
+gem install pack-rubyyy -v 2.3.4
 ```
 
 Or add the gem to your Gemfile and run `bundle`:
 
 ```ruby
-gem 'pack-rubyyy', '3.4.5'
+gem 'pack-rubyyy', '2.3.4'
 ```
 
-For additional gem details, see the [RubyGems page for the pack-rubyyy gem](https://rubygems.org/gems/pack-rubyyy/versions/3.4.5).
+For additional gem details, see the [RubyGems page for the pack-rubyyy gem](https://rubygems.org/gems/pack-rubyyy/versions/2.3.4).
 
 ## Test the SDK
 
@@ -55,7 +55,7 @@ rake
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/client.md)
 
 The following parameters are configurable for the API Client:
 
@@ -71,9 +71,9 @@ The following parameters are configurable for the API Client:
 | `retry_statuses` | `Array` | A list of HTTP statuses to retry. <br> **Default: [408, 413, 429, 500, 502, 503, 504, 521, 522, 524]** |
 | `retry_methods` | `Array` | A list of HTTP methods to retry. <br> **Default: %i[get put]** |
 | `http_callback` | `HttpCallBack` | The Http CallBack allows defining callables for pre and post API calls. |
-| `api_token_credentials` | [`ApiTokenCredentials`](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/auth/custom-header-signature.md) | The credential object for Custom Header Signature |
-| `basic_auth_credentials` | [`BasicAuthCredentials`](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/auth/basic-authentication.md) | The credential object for Basic Authentication |
-| `csrf_token_credentials` | [`CsrfTokenCredentials`](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/auth/custom-header-signature-1.md) | The credential object for Custom Header Signature |
+| `api_token_credentials` | [`ApiTokenCredentials`](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/auth/custom-header-signature.md) | The credential object for Custom Header Signature |
+| `basic_auth_credentials` | [`BasicAuthCredentials`](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/auth/basic-authentication.md) | The credential object for Basic Authentication |
+| `csrf_token_credentials` | [`CsrfTokenCredentials`](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/auth/custom-header-signature-1.md) | The credential object for Custom Header Signature |
 
 The API client can be initialized as follows:
 
@@ -114,18 +114,18 @@ The SDK can be configured to use a different environment for making API calls. A
 
 This API uses the following authentication schemes.
 
-* [`apiToken (Custom Header Signature)`](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/auth/custom-header-signature.md)
-* [`basicAuth (Basic Authentication)`](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/auth/basic-authentication.md)
-* [`csrfToken (Custom Header Signature)`](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/auth/custom-header-signature-1.md)
+* [`apiToken (Custom Header Signature)`](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/auth/custom-header-signature.md)
+* [`basicAuth (Basic Authentication)`](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/auth/basic-authentication.md)
+* [`csrfToken (Custom Header Signature)`](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/auth/custom-header-signature-1.md)
 
 ## List of APIs
 
-* [Orgs NAC Tags](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/controllers/orgs-nac-tags.md)
-* [Orgs NAC Portals](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/controllers/orgs-nac-portals.md)
+* [Orgs NAC Tags](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/controllers/orgs-nac-tags.md)
+* [Orgs NAC Portals](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/controllers/orgs-nac-portals.md)
 
 ## Classes Documentation
 
-* [Utility Classes](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/utility-classes.md)
-* [HttpResponse](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/http-response.md)
-* [HttpRequest](https://www.github.com/ZahraN444/testdpsjf/tree/3.4.5/doc/http-request.md)
+* [Utility Classes](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/utility-classes.md)
+* [HttpResponse](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/http-response.md)
+* [HttpRequest](https://www.github.com/ZahraN444/testdpsjf/tree/2.3.4/doc/http-request.md)
 

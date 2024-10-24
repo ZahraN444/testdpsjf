@@ -48,6 +48,83 @@ module MistApi
         .execute
     end
 
+    # Create Org NAC Portal
+    # @param [UUID | String] org_id Required parameter: Example:
+    # @param [NacPortal] body Optional parameter: Example:
+    # @return [NacPortal] response from the API call.
+    def create_org_nac_portal(org_id,
+                              body: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/api/v1/orgs/{org_id}/nacportals',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(org_id, key: 'org_id')
+                                    .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'accept'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
+        .response(new_response_handler
+                    .deserializer(APIHelper.method(:custom_type_deserializer))
+                    .deserialize_into(NacPortal.method(:from_hash))
+                    .local_error('400',
+                                 'Bad Syntax',
+                                 ApiV1OrgsNacportals400ErrorException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 ApiV1OrgsNacportals401ErrorException)
+                    .local_error('403',
+                                 'Permission Denied',
+                                 ApiV1OrgsNacportals403ErrorException)
+                    .local_error('404',
+                                 'Not found. The API endpoint doesnâ€™t exist or resource'\
+                                  ' doesnâ€™ t exist',
+                                 ResponseHttp404Exception)
+                    .local_error('429',
+                                 'Too Many Request. The API Token used for the request reached'\
+                                  ' the 5000 API Calls per hour threshold',
+                                 ApiV1OrgsNacportals429ErrorException))
+        .execute
+    end
+
+    # Delete Org NAC Portal
+    # @param [UUID | String] org_id Required parameter: Example:
+    # @param [UUID | String] nacportal_id Required parameter: Example:
+    # @return [void] response from the API call.
+    def delete_org_nac_portal(org_id,
+                              nacportal_id)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/api/v1/orgs/{org_id}/nacportals/{nacportal_id}',
+                                     Server::DEFAULT)
+                   .template_param(new_parameter(org_id, key: 'org_id')
+                                    .should_encode(true))
+                   .template_param(new_parameter(nacportal_id, key: 'nacportal_id')
+                                    .should_encode(true))
+                   .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
+        .response(new_response_handler
+                    .is_response_void(true)
+                    .local_error('400',
+                                 'Bad Syntax',
+                                 ApiV1OrgsNacportals400ErrorException)
+                    .local_error('401',
+                                 'Unauthorized',
+                                 ApiV1OrgsNacportals401ErrorException)
+                    .local_error('403',
+                                 'Permission Denied',
+                                 ApiV1OrgsNacportals403ErrorException)
+                    .local_error('404',
+                                 'Not found. The API endpoint doesnâ€™t exist or resource'\
+                                  ' doesnâ€™ t exist',
+                                 ResponseHttp404Exception)
+                    .local_error('429',
+                                 'Too Many Request. The API Token used for the request reached'\
+                                  ' the 5000 API Calls per hour threshold',
+                                 ApiV1OrgsNacportals429ErrorException))
+        .execute
+    end
+
     # Get Org NAC Portal
     # @param [UUID | String] org_id Required parameter: Example:
     # @param [UUID | String] nacportal_id Required parameter: Example:
@@ -131,83 +208,6 @@ module MistApi
         .execute
     end
 
-    # Create Org NAC Portal
-    # @param [UUID | String] org_id Required parameter: Example:
-    # @param [NacPortal] body Optional parameter: Example:
-    # @return [NacPortal] response from the API call.
-    def create_org_nac_portal(org_id,
-                              body: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/api/v1/orgs/{org_id}/nacportals',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(org_id, key: 'org_id')
-                                    .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'accept'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
-        .response(new_response_handler
-                    .deserializer(APIHelper.method(:custom_type_deserializer))
-                    .deserialize_into(NacPortal.method(:from_hash))
-                    .local_error('400',
-                                 'Bad Syntax',
-                                 ApiV1OrgsNacportals400ErrorException)
-                    .local_error('401',
-                                 'Unauthorized',
-                                 ApiV1OrgsNacportals401ErrorException)
-                    .local_error('403',
-                                 'Permission Denied',
-                                 ApiV1OrgsNacportals403ErrorException)
-                    .local_error('404',
-                                 'Not found. The API endpoint doesnâ€™t exist or resource'\
-                                  ' doesnâ€™ t exist',
-                                 ResponseHttp404Exception)
-                    .local_error('429',
-                                 'Too Many Request. The API Token used for the request reached'\
-                                  ' the 5000 API Calls per hour threshold',
-                                 ApiV1OrgsNacportals429ErrorException))
-        .execute
-    end
-
-    # Delete Org NAC Portal
-    # @param [UUID | String] org_id Required parameter: Example:
-    # @param [UUID | String] nacportal_id Required parameter: Example:
-    # @return [void] response from the API call.
-    def delete_org_nac_portal(org_id,
-                              nacportal_id)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/api/v1/orgs/{org_id}/nacportals/{nacportal_id}',
-                                     Server::DEFAULT)
-                   .template_param(new_parameter(org_id, key: 'org_id')
-                                    .should_encode(true))
-                   .template_param(new_parameter(nacportal_id, key: 'nacportal_id')
-                                    .should_encode(true))
-                   .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
-        .response(new_response_handler
-                    .is_response_void(true)
-                    .local_error('400',
-                                 'Bad Syntax',
-                                 ApiV1OrgsNacportals400ErrorException)
-                    .local_error('401',
-                                 'Unauthorized',
-                                 ApiV1OrgsNacportals401ErrorException)
-                    .local_error('403',
-                                 'Permission Denied',
-                                 ApiV1OrgsNacportals403ErrorException)
-                    .local_error('404',
-                                 'Not found. The API endpoint doesnâ€™t exist or resource'\
-                                  ' doesnâ€™ t exist',
-                                 ResponseHttp404Exception)
-                    .local_error('429',
-                                 'Too Many Request. The API Token used for the request reached'\
-                                  ' the 5000 API Calls per hour threshold',
-                                 ApiV1OrgsNacportals429ErrorException))
-        .execute
-    end
-
     # Get List of Org NAC Portal SSO Latest Failures
     # @param [UUID | String] org_id Required parameter: Example:
     # @param [UUID | String] nacportal_id Required parameter: Example:
@@ -264,37 +264,33 @@ module MistApi
         .execute
     end
 
-    # Update Org NAC Portal Template
+    # Delete background image for NAC Portal
+    # If image is not uploaded or is deleted, NAC Portal will use default image.
     # @param [UUID | String] org_id Required parameter: Example:
     # @param [UUID | String] nacportal_id Required parameter: Example:
-    # @param [NacPortalTemplate] body Optional parameter: Example:
     # @return [void] response from the API call.
-    def update_org_nac_portal_tempalte(org_id,
-                                       nacportal_id,
-                                       body: nil)
+    def delete_org_nac_portal_image(org_id,
+                                    nacportal_id)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/portal_template',
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/portal_image',
                                      Server::DEFAULT)
                    .template_param(new_parameter(org_id, key: 'org_id')
                                     .should_encode(true))
                    .template_param(new_parameter(nacportal_id, key: 'nacportal_id')
                                     .should_encode(true))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_param(new_parameter(body))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
         .response(new_response_handler
                     .is_response_void(true)
                     .local_error('400',
                                  'Bad Syntax',
-                                 ApiV1OrgsNacportalsPortalTemplate400ErrorException)
+                                 ApiV1OrgsNacportalsPortalImage400ErrorException)
                     .local_error('401',
                                  'Unauthorized',
-                                 ApiV1OrgsNacportalsPortalTemplate401ErrorException)
+                                 ApiV1OrgsNacportalsPortalImage401ErrorException)
                     .local_error('403',
                                  'Permission Denied',
-                                 ApiV1OrgsNacportalsPortalTemplate403ErrorException)
+                                 ApiV1OrgsNacportalsPortalImage403ErrorException)
                     .local_error('404',
                                  'Not found. The API endpoint doesnâ€™t exist or resource'\
                                   ' doesnâ€™ t exist',
@@ -302,7 +298,7 @@ module MistApi
                     .local_error('429',
                                  'Too Many Request. The API Token used for the request reached'\
                                   ' the 5000 API Calls per hour threshold',
-                                 ApiV1OrgsNacportalsPortalTemplate429ErrorException))
+                                 ApiV1OrgsNacportalsPortalImage429ErrorException))
         .execute
     end
 
@@ -351,33 +347,37 @@ module MistApi
         .execute
     end
 
-    # Delete background image for NAC Portal
-    # If image is not uploaded or is deleted, NAC Portal will use default image.
+    # Update Org NAC Portal Template
     # @param [UUID | String] org_id Required parameter: Example:
     # @param [UUID | String] nacportal_id Required parameter: Example:
+    # @param [NacPortalTemplate] body Optional parameter: Example:
     # @return [void] response from the API call.
-    def delete_org_nac_portal_image(org_id,
-                                    nacportal_id)
+    def update_org_nac_portal_tempalte(org_id,
+                                       nacportal_id,
+                                       body: nil)
       new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/portal_image',
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/api/v1/orgs/{org_id}/nacportals/{nacportal_id}/portal_template',
                                      Server::DEFAULT)
                    .template_param(new_parameter(org_id, key: 'org_id')
                                     .should_encode(true))
                    .template_param(new_parameter(nacportal_id, key: 'nacportal_id')
                                     .should_encode(true))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_param(new_parameter(body))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
                    .auth(Or.new('apiToken', 'basicAuth', And.new('basicAuth', 'csrfToken'))))
         .response(new_response_handler
                     .is_response_void(true)
                     .local_error('400',
                                  'Bad Syntax',
-                                 ApiV1OrgsNacportalsPortalImage400ErrorException)
+                                 ApiV1OrgsNacportalsPortalTemplate400ErrorException)
                     .local_error('401',
                                  'Unauthorized',
-                                 ApiV1OrgsNacportalsPortalImage401ErrorException)
+                                 ApiV1OrgsNacportalsPortalTemplate401ErrorException)
                     .local_error('403',
                                  'Permission Denied',
-                                 ApiV1OrgsNacportalsPortalImage403ErrorException)
+                                 ApiV1OrgsNacportalsPortalTemplate403ErrorException)
                     .local_error('404',
                                  'Not found. The API endpoint doesnâ€™t exist or resource'\
                                   ' doesnâ€™ t exist',
@@ -385,7 +385,7 @@ module MistApi
                     .local_error('429',
                                  'Too Many Request. The API Token used for the request reached'\
                                   ' the 5000 API Calls per hour threshold',
-                                 ApiV1OrgsNacportalsPortalImage429ErrorException))
+                                 ApiV1OrgsNacportalsPortalTemplate429ErrorException))
         .execute
     end
   end

@@ -30,67 +30,67 @@ require_relative 'mist_api/http/auth/csrf_token'
 
 # Models
 require_relative 'mist_api/models/base_model'
-require_relative 'mist_api/models/nac_tag'
-require_relative 'mist_api/models/nac_rule_matching'
-require_relative 'mist_api/models/nac_rule'
+require_relative 'mist_api/models/nac_crl_file'
+require_relative 'mist_api/models/nac_portal'
 require_relative 'mist_api/models/nac_portal_sso'
 require_relative 'mist_api/models/nac_portal_sso_role_matching'
-require_relative 'mist_api/models/response_http400'
-require_relative 'mist_api/models/nac_crl_file'
-require_relative 'mist_api/models/network_destination_nat_property'
-require_relative 'mist_api/models/response_sso_failure_search'
-require_relative 'mist_api/models/name_string'
-require_relative 'mist_api/models/response_sso_failure_search_item'
-require_relative 'mist_api/models/nac_portal'
 require_relative 'mist_api/models/nac_portal_template'
+require_relative 'mist_api/models/nac_rule'
+require_relative 'mist_api/models/nac_rule_matching'
+require_relative 'mist_api/models/nac_tag'
+require_relative 'mist_api/models/name_string'
+require_relative 'mist_api/models/network_destination_nat_property'
 require_relative 'mist_api/models/network_internal_access'
 require_relative 'mist_api/models/network_internet_access'
 require_relative 'mist_api/models/network_static_nat_property'
-require_relative 'mist_api/models/nac_tag_username_attr_enum'
-require_relative 'mist_api/models/nac_rule_matching_auth_type_enum'
-require_relative 'mist_api/models/nac_rule_action_enum'
+require_relative 'mist_api/models/response_sso_failure_search'
+require_relative 'mist_api/models/response_sso_failure_search_item'
+require_relative 'mist_api/models/response_http400'
 require_relative 'mist_api/models/nac_portal_access_type_enum'
 require_relative 'mist_api/models/nac_portal_type_enum'
-require_relative 'mist_api/models/nac_tag_match_enum'
+require_relative 'mist_api/models/nac_rule_action_enum'
+require_relative 'mist_api/models/nac_rule_matching_auth_type_enum'
 require_relative 'mist_api/models/nac_rule_matching_port_type_enum'
-require_relative 'mist_api/models/nac_portal_type_enum1_enum'
+require_relative 'mist_api/models/nac_tag_match_enum'
 require_relative 'mist_api/models/nac_tag_type_enum'
+require_relative 'mist_api/models/nac_tag_username_attr_enum'
+require_relative 'mist_api/models/nac_portal_type_enum1_enum'
 
 # Exceptions
 require_relative 'mist_api/exceptions/api_exception'
-require_relative 'mist_api/exceptions/api_v1_orgs_nactags400_error_exception'
 require_relative 'mist_api/exceptions/response_http404_exception'
+require_relative 'mist_api/exceptions/api_v1_orgs_nacportals400_error_exception'
+require_relative 'mist_api/exceptions/api_v1_orgs_nacportals401_error_exception'
 require_relative 'mist_api/exceptions/api_v1_orgs_nacportals403_error_exception'
-require_relative 'mist_api/exceptions/api_v1_orgs_nactags429_error_exception'
+require_relative 'mist_api/exceptions/api_v1_orgs_nacportals429_error_exception'
 require_relative 'mist_api/exceptions/' \
-                 'api_v1_orgs_nacportals_portal_template403_error_exception'
+                 'api_v1_orgs_nacportals_failures400_error_exception'
 require_relative 'mist_api/exceptions/' \
                  'api_v1_orgs_nacportals_failures401_error_exception'
 require_relative 'mist_api/exceptions/' \
                  'api_v1_orgs_nacportals_failures403_error_exception'
 require_relative 'mist_api/exceptions/' \
-                 'api_v1_orgs_nacportals_portal_template400_error_exception'
-require_relative 'mist_api/exceptions/api_v1_orgs_nactags401_error_exception'
-require_relative 'mist_api/exceptions/api_v1_orgs_nactags403_error_exception'
-require_relative 'mist_api/exceptions/api_v1_orgs_nacportals401_error_exception'
-require_relative 'mist_api/exceptions/' \
-                 'api_v1_orgs_nacportals_portal_template401_error_exception'
-require_relative 'mist_api/exceptions/' \
                  'api_v1_orgs_nacportals_failures429_error_exception'
-require_relative 'mist_api/exceptions/api_v1_orgs_nacportals400_error_exception'
-require_relative 'mist_api/exceptions/api_v1_orgs_nacportals429_error_exception'
 require_relative 'mist_api/exceptions/' \
-                 'api_v1_orgs_nacportals_failures400_error_exception'
+                 'api_v1_orgs_nacportals_portal_image400_error_exception'
+require_relative 'mist_api/exceptions/' \
+                 'api_v1_orgs_nacportals_portal_image401_error_exception'
 require_relative 'mist_api/exceptions/' \
                  'api_v1_orgs_nacportals_portal_image403_error_exception'
 require_relative 'mist_api/exceptions/' \
                  'api_v1_orgs_nacportals_portal_image429_error_exception'
 require_relative 'mist_api/exceptions/' \
-                 'api_v1_orgs_nacportals_portal_image400_error_exception'
+                 'api_v1_orgs_nacportals_portal_template400_error_exception'
+require_relative 'mist_api/exceptions/' \
+                 'api_v1_orgs_nacportals_portal_template401_error_exception'
+require_relative 'mist_api/exceptions/' \
+                 'api_v1_orgs_nacportals_portal_template403_error_exception'
 require_relative 'mist_api/exceptions/' \
                  'api_v1_orgs_nacportals_portal_template429_error_exception'
-require_relative 'mist_api/exceptions/' \
-                 'api_v1_orgs_nacportals_portal_image401_error_exception'
+require_relative 'mist_api/exceptions/api_v1_orgs_nactags400_error_exception'
+require_relative 'mist_api/exceptions/api_v1_orgs_nactags401_error_exception'
+require_relative 'mist_api/exceptions/api_v1_orgs_nactags403_error_exception'
+require_relative 'mist_api/exceptions/api_v1_orgs_nactags429_error_exception'
 
 require_relative 'mist_api/configuration'
 

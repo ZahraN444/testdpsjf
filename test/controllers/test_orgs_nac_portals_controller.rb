@@ -48,6 +48,53 @@ class OrgsNACPortalsControllerTests < ControllerTestBase
     assert(ComparisonHelper.match_body(expected_body, received_body))
   end
 
+  # Create Org NAC Portal
+  def test_create_org_nac_portal
+    # Parameters for the API call
+    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
+    body = nil
+
+    # Perform the API call through the SDK function
+    result = @controller.create_org_nac_portal(org_id, body: body)
+
+    # Test response code
+    assert_equal(200, @response_catcher.response.status_code)
+
+    # Test headers
+    expected_headers = {}
+    expected_headers['content-type'] = 'application/json'
+
+    assert(ComparisonHelper.match_headers(expected_headers, @response_catcher.response.headers))
+
+    # Test whether the captured response is as we expected
+    refute_nil(result)
+    expected_body = JSON.parse(
+      '{"access_type":"wireless","cert_expire_time":365,"enable_telemetry":tru'\
+      'e,"expiry_notification_time":2,"name":"get-wifi","notify_expiry":true,"'\
+      'ssid":"Corp","sso":{"idp_cert":"-----BEGIN CERTIFICATE-----\\nMIIFZjCCA'\
+      '06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\\n-----END CERTIFICATE-----"'\
+      ',"idp_sign_algo":"sha256","idp_sso_url":"https://yourorg.onelogin.com/t'\
+      'rust/saml2/http-post/sso/138130","issuer":"https://app.onelogin.com/sam'\
+      'l/metadata/138130","nameid_format":"email","sso_role_matching":[{"assig'\
+      'ned":"user","match":"Student"}],"use_sso_role_for_cert":true}}'
+    )
+    received_body = JSON.parse(@response_catcher.response.raw_body)
+    assert(ComparisonHelper.match_body(expected_body, received_body))
+  end
+
+  # Delete Org NAC Portal
+  def test_delete_org_nac_portal
+    # Parameters for the API call
+    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
+    nacportal_id = '000000ab-00ab-00ab-00ab-0000000000ab'
+
+    # Perform the API call through the SDK function
+    @controller.delete_org_nac_portal(org_id, nacportal_id)
+
+    # Test response code
+    assert_equal(200, @response_catcher.response.status_code)
+  end
+
   # Get Org NAC Portal
   def test_get_org_nac_portal
     # Parameters for the API call
@@ -117,53 +164,6 @@ class OrgsNACPortalsControllerTests < ControllerTestBase
     assert(ComparisonHelper.match_body(expected_body, received_body))
   end
 
-  # Create Org NAC Portal
-  def test_create_org_nac_portal
-    # Parameters for the API call
-    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
-    body = nil
-
-    # Perform the API call through the SDK function
-    result = @controller.create_org_nac_portal(org_id, body: body)
-
-    # Test response code
-    assert_equal(200, @response_catcher.response.status_code)
-
-    # Test headers
-    expected_headers = {}
-    expected_headers['content-type'] = 'application/json'
-
-    assert(ComparisonHelper.match_headers(expected_headers, @response_catcher.response.headers))
-
-    # Test whether the captured response is as we expected
-    refute_nil(result)
-    expected_body = JSON.parse(
-      '{"access_type":"wireless","cert_expire_time":365,"enable_telemetry":tru'\
-      'e,"expiry_notification_time":2,"name":"get-wifi","notify_expiry":true,"'\
-      'ssid":"Corp","sso":{"idp_cert":"-----BEGIN CERTIFICATE-----\\nMIIFZjCCA'\
-      '06gAwIBAgIIP61/1qm/uDowDQYJKoZIhvcNAQELBQE\\n-----END CERTIFICATE-----"'\
-      ',"idp_sign_algo":"sha256","idp_sso_url":"https://yourorg.onelogin.com/t'\
-      'rust/saml2/http-post/sso/138130","issuer":"https://app.onelogin.com/sam'\
-      'l/metadata/138130","nameid_format":"email","sso_role_matching":[{"assig'\
-      'ned":"user","match":"Student"}],"use_sso_role_for_cert":true}}'
-    )
-    received_body = JSON.parse(@response_catcher.response.raw_body)
-    assert(ComparisonHelper.match_body(expected_body, received_body))
-  end
-
-  # Delete Org NAC Portal
-  def test_delete_org_nac_portal
-    # Parameters for the API call
-    org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
-    nacportal_id = '000000ab-00ab-00ab-00ab-0000000000ab'
-
-    # Perform the API call through the SDK function
-    @controller.delete_org_nac_portal(org_id, nacportal_id)
-
-    # Test response code
-    assert_equal(200, @response_catcher.response.status_code)
-  end
-
   # Get List of Org NAC Portal SSO Latest Failures
   def test_list_org_nac_portal_sso_latest_failures
     # Parameters for the API call
@@ -200,15 +200,17 @@ class OrgsNACPortalsControllerTests < ControllerTestBase
     assert(ComparisonHelper.match_body(expected_body, received_body))
   end
 
-  # Update Org NAC Portal Template
-  def test_update_org_nac_portal_tempalte
+  # Delete background image for NAC Portal
+  #
+  #
+  #If image is not uploaded or is deleted, NAC Portal will use default image.
+  def test_delete_org_nac_portal_image
     # Parameters for the API call
     org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
     nacportal_id = '000000ab-00ab-00ab-00ab-0000000000ab'
-    body = nil
 
     # Perform the API call through the SDK function
-    @controller.update_org_nac_portal_tempalte(org_id, nacportal_id, body: body)
+    @controller.delete_org_nac_portal_image(org_id, nacportal_id)
 
     # Test response code
     assert_equal(200, @response_catcher.response.status_code)
@@ -230,17 +232,15 @@ class OrgsNACPortalsControllerTests < ControllerTestBase
     assert_equal(200, @response_catcher.response.status_code)
   end
 
-  # Delete background image for NAC Portal
-  #
-  #
-  #If image is not uploaded or is deleted, NAC Portal will use default image.
-  def test_delete_org_nac_portal_image
+  # Update Org NAC Portal Template
+  def test_update_org_nac_portal_tempalte
     # Parameters for the API call
     org_id = '000000ab-00ab-00ab-00ab-0000000000ab'
     nacportal_id = '000000ab-00ab-00ab-00ab-0000000000ab'
+    body = nil
 
     # Perform the API call through the SDK function
-    @controller.delete_org_nac_portal_image(org_id, nacportal_id)
+    @controller.update_org_nac_portal_tempalte(org_id, nacportal_id, body: body)
 
     # Test response code
     assert_equal(200, @response_catcher.response.status_code)
